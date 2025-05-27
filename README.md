@@ -28,8 +28,24 @@ Este proyecto es un sistema de extracción de información de facturas utilizand
 - **Navegador moderno**: Chrome, Firefox, Edge, etc.
 
 ## Estructura del proyecto
-- `app/`: Contiene el backend (FastAPI, scripts de agente y webhook).
-- `frontend/`: Contiene el frontend (React).
+```
+fr8-invoices-information/
+├──agentverse/                # Directorio que contiene el codigo que se debe alojar en agentverse
+|  ├── invoice_agent.py       # Clase principal de AGENTE AI para extracción de facturas
+|  ├── invoice_models.py      # Modelos para peticion y respuesta (empaquetan la informacion)
+|  └── agent.py
+├── app/
+│   ├── invoice_agent.py       # Clase principal de AGENTE AI para extracción de facturas (para pruebas locales, en realidad va en Agentverse)
+│   ├── invoice_api.py         # Modulo principal que contiene la logica de la API 
+│   ├── test_one_invoice.py    # Script de prueba para una factura
+│   └── test_multiple_invoices.py # Script de prueba para múltiples facturas
+├── data/
+│   └── raw/                   # Directorio para facturas PDF
+├── frontend/                  # Frontend del proyecto desarrollado en React
+├── notebooks/                 # Jupyter notebooks para análisis
+├── requirements.txt          # Dependencias del proyecto
+└── .env                      # Variables de entorno (no incluido en git)
+```
 
 ## Instalación
 1. **Clona el repositorio**:
