@@ -140,7 +140,7 @@ fr8-invoices-information/
    - Espera a que el backend procese el archivo y devuelva los resultados. El frontend mostrará una tabla con los campos extraídos, valores y errores (✅ o ❌).
    - Si ves un mensaje de error o el spinner no desaparece, revisa la sección de “Solución de problemas”.
 
-7. **Flujo de la aplicacion**
+# Flujo de la aplicacion
    ```bash
 		_____________________      (1)        _________          (2)         ____________
 		|                   |--------------->|         |------------------->|            |
@@ -155,6 +155,9 @@ fr8-invoices-information/
 		(4) : La API retorna la 2-tupla (resultado, errores) en formato json a la interfaz
 					para desplegar la informacion
    ```
+# Resultado de implementacion
+
+https://github.com/user-attachments/assets/62fe102c-f035-4305-9ace-75b4819836c4
 
 
 ## Solución de problemas
