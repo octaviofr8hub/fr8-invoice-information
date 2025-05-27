@@ -1,6 +1,23 @@
-# fr8-invoices-information
+# FR8 Invoices Information
 
-Este proyecto es una aplicación para procesar facturas en PDF. El **backend** (FastAPI) extrae el texto de los PDFs, lo envía a un agente de AgentVerse (tecnologia de fetch.ai) para extraer datos mediante el modelo ASI1 y recibe los resultados por un webhook. El **frontend** (React) permite subir los PDFs y muestra los datos extraídos en una tabla. Usa ngrok para exponer el backend local a internet. Sigue estos pasos para configurarlo y correrlo.
+Este proyecto es un sistema de extracción de información de facturas utilizando inteligencia artificial. El sistema está diseñado para procesar facturas en formato PDF y extraer información relevante como datos del emisor, receptor, montos y detalles fiscales. El **backend** (FastAPI) extrae el texto de los PDFs, lo envía a un agente de AgentVerse (tecnologia de fetch.ai) para extraer datos mediante el modelo ASI1 y recibe los resultados por un webhook. El **frontend** (React) permite subir los PDFs y muestra los datos extraídos en una tabla. Usa ngrok para exponer el backend local a internet. Sigue estos pasos para configurarlo y correrlo.
+
+## Características
+
+- Extracción automática de datos de facturas PDF
+- Procesamiento de múltiples facturas
+- Extracción de información clave como:
+  - Nombre y RFC del emisor
+  - Nombre y RFC del receptor
+  - Fecha de emisión
+  - UUID
+  - Montos (subtotal, IVA, total)
+  - Moneda
+- Salida en formato JSON estructurado
+- Detección automática de RFCs mediante expresiones regulares
+- Manejo robusto de errores y reintentos en llamadas a la API
+- Procesamiento de respuestas JSON en múltiples formatos
+
 
 ## Requisitos
 - **Python 3.8+**: Descárgalo de [python.org](https://www.python.org/downloads/).
