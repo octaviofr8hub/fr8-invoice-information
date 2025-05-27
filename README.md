@@ -62,9 +62,10 @@ fr8-invoices-information/
      source venv/bin/activate  # En Windows: venv\Scripts\activate
      ```
    - **Instala las dependencias**:
-     ```bash
-     pip install fastapi uvicorn pdfplumber uagents python-dotenv fetchai
-     ```
+   
+    ```bash
+    pip install -r requirements.txt
+    ```
    - **Configura las variables de entorno**:
      Crea un archivo `.env` en `app/` con esto:
      ```env
