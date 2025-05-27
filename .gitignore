@@ -3,3 +3,4 @@
 app/__pycache__/
 langchain-asi/
 .ngrok.exe
+app/uagents_core.log
