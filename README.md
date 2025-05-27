@@ -141,19 +141,19 @@ fr8-invoices-information/
    - Si ves un mensaje de error o el spinner no desaparece, revisa la sección de “Solución de problemas”.
 
 7. **Flujo de la aplicacion**
-   ```python
-   _____________________      (1)        _________          (2)         ____________
-|                   |--------------->|         |------------------->|            |
-| Interfaz grafica  |                |   API   |                    | Agentverse |
-|___________________|<---------------|_________|<-------------------|____________|
-													(4)														 (3)
-
-(1) : Se envia el pdf al endpoint "upload-pdf" para usar pdfplumber y extraer el texto
-(2) : Se envia el texto extraido a Agentverse y se procesa por el LLM ASI1
-(3) : Una vez procesado, retorna 2 tuplas, una de los resultados y otra 
-			de los errores y retorna la respuesta la API
-(4) : La API retorna la 2-tupla (resultado, errores) en formato json a la interfaz
-			para desplegar la informacion
+   ```bash
+		_____________________      (1)        _________          (2)         ____________
+		|                   |--------------->|         |------------------->|            |
+		| Interfaz grafica  |                |   API   |                    | Agentverse |
+		|___________________|<---------------|_________|<-------------------|____________|
+			                   (4)				 (3)
+		
+		(1) : Se envia el pdf al endpoint "upload-pdf" para usar pdfplumber y extraer el texto
+		(2) : Se envia el texto extraido a Agentverse y se procesa por el LLM ASI1
+		(3) : Una vez procesado, retorna 2 tuplas, una de los resultados y otra 
+					de los errores y retorna la respuesta la API
+		(4) : La API retorna la 2-tupla (resultado, errores) en formato json a la interfaz
+					para desplegar la informacion
    ```
 
 
