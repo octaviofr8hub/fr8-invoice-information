@@ -57,7 +57,6 @@ fr8-invoices-information/
 2. **Configura el backend**:
    - **Crea un entorno virtual**:
      ```bash
-     cd app
      python -m venv venv
      source venv/bin/activate  # En Windows: venv\Scripts\activate
      ```
@@ -67,7 +66,7 @@ fr8-invoices-information/
     pip install -r requirements.txt
     ```
    - **Configura las variables de entorno**:
-     Crea un archivo `.env` en `app/` con esto:
+     Crea un archivo `.env` en la raiz del proyecto con esto:
      ```env
      AGENTVERSE_API_KEY=<tu-api-key-de-agentverse>
      ASI1_API_KEY=<tu-api-key-de-asi1>
