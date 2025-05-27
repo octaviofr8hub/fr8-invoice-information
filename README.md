@@ -1,13 +1,13 @@
 # fr8-invoices-information
 
-Este proyecto es una aplicación pa’ procesar facturas en PDF. El **backend** (FastAPI) extrae el texto de los PDFs, lo envía a un agente de AgentVerse pa’ extraer datos y recibe los resultados por un webhook. El **frontend** (React) permite subir los PDFs y muestra los datos extraídos en una tabla. Usa ngrok pa’ exponer el backend local a internet. Sigue estos pasos pa’ configurarlo y correrlo.
+Este proyecto es una aplicación para procesar facturas en PDF. El **backend** (FastAPI) extrae el texto de los PDFs, lo envía a un agente de AgentVerse (tecnologia de fetch.ai) para extraer datos mediante el modelo ASI1 y recibe los resultados por un webhook. El **frontend** (React) permite subir los PDFs y muestra los datos extraídos en una tabla. Usa ngrok para exponer el backend local a internet. Sigue estos pasos para configurarlo y correrlo.
 
 ## Requisitos
 - **Python 3.8+**: Descárgalo de [python.org](https://www.python.org/downloads/).
 - **Node.js 14+**: Descárgalo de [nodejs.org](https://nodejs.org).
 - **ngrok**: Regístrate gratis en [ngrok.com](https://ngrok.com) e instala el CLI.
 - **Cuenta en AgentVerse**: Consigue una API key en [AgentVerse](https://agentverse.ai).
-- **API Key de ASI1**: Obtén una API key pa’l `InvoiceExtractor` (cámbialo por los datos de tu proveedor).
+- **API Key de ASI1**: Obtén una API key para `InvoiceExtractor` (cámbialo por los datos de tu proveedor).
 - **Navegador moderno**: Chrome, Firefox, Edge, etc.
 
 ## Estructura del proyecto
@@ -80,21 +80,19 @@ Este proyecto es una aplicación pa’ procesar facturas en PDF. El **backend** 
    ```
    Copia la URL de ngrok (p.ej., `https://f652-2806-2f0-a6a1-f8b3-d075-7e7a-969c-bcb5.ngrok-free.app`) y actualiza `WEBHOOK_URL` en `app/.env` añadiendo `/api/webhook` (p.ej., `https://f652-.../api/webhook`). Si usas ngrok, también actualiza la URL en `frontend/src/App.js`.
 
-3. **Registra el webhook**:
-   Corre el script pa’ registrar el webhook en AgentVerse:
-   ```bash
-   python register_webhook.py
-   ```
-   Revisa los logs pa’ confirmar que se registró chido.
+3. **Arranca el agente de AgentVerse**:
+   Ingresa a Agentverse -> Agents -> Create Agent esto para alojar un agente en los servicios de fetch.ai, ya que ahi es donde alojaremos nuestro codigo
+   del directorio "agentverse"
 
-4. **Arranca el agente de AgentVerse**:
-   Corre el script del agente:
+   Build de agentverse:
    ```bash
-   python proxy_agent.py
+   |_agent.py
+   |_invoice_extractor.py
+   |_invoice_models.py
    ```
-   Anota la dirección del agente de los logs (p.ej., `agent1q_nueva_direccion...`) y actualiza `TARGET_AGENT_ADDRESS` en `app/.env`.
+   Anota la dirección del agente esta se encuentra en la seccion Overview del agente seleccionado y actualizala en el backend (`TARGET_AGENT_ADDRESS` en `app/.env`).
 
-5. **Arranca el frontend React**:
+4. **Arranca el frontend React**:
    ```bash
    cd ../frontend
    npm start
@@ -103,16 +101,16 @@ Este proyecto es una aplicación pa’ procesar facturas en PDF. El **backend** 
 
 6. **Usa la aplicación**:
    - Abre `http://localhost:3000` en tu navegador.
-   - Selecciona un archivo PDF de factura con el botón de carga.
-   - Haz clic en “Enviar al agente” pa’ mandar el PDF al backend.
+   - Selecciona un archivo PDF de factura (de la carpeta data/raw/ de este proyecto) con el botón de carga.
+   - Haz clic en “Enviar al agente” para mandar el PDF al backend.
    - Espera a que el backend procese el archivo y devuelva los resultados. El frontend mostrará una tabla con los campos extraídos, valores y errores (✅ o ❌).
    - Si ves un mensaje de error o el spinner no desaparece, revisa la sección de “Solución de problemas”.
 
 ## Solución de problemas
 - **AgentVerse no recibe mensajes**:
-  - Asegúrate que `TARGET_AGENT_ADDRESS` coincida con la dirección del agente en los logs de `proxy_agent.py`.
+  - Asegúrate que `TARGET_AGENT_ADDRESS` coincida con la dirección del agente de Agentverse.
   - Verifica que `AGENTVERSE_API_KEY` sea válida.
-  - Checa el panel de AgentVerse pa’l estado del agente.
+  - Checa el panel de AgentVerse para el estado del agente.
   - Contacta al soporte de AgentVerse si el agente no recibe mensajes.
 
 - **Webhook no recibe respuestas**:
@@ -129,11 +127,11 @@ Este proyecto es una aplicación pa’ procesar facturas en PDF. El **backend** 
     uvicorn invoice_api:app --host 0.0.0.0 --port 8000 --reload
     ```
   - Verifica que la URL en `frontend/src/App.js` coincida con la URL del backend (local o ngrok).
-  - Abre la consola del navegador (F12 > Console) pa’ ver errores de red.
+  - Abre la consola del navegador (F12 > Console) para ver errores de red.
 
 - **El PDF no se procesa**:
   - Confirma que el archivo es un PDF válido.
-  - Revisa los logs del backend (`invoice_api.py`) pa’ ver si el PDF se recibió y se envió a AgentVerse.
+  - Revisa los logs del backend (`invoice_api.py`) para ver si el PDF se recibió y se envió a AgentVerse.
   - Checa que el agente de AgentVerse esté activo.
 
 - **Problemas con ngrok**:
@@ -148,9 +146,7 @@ Este proyecto es una aplicación pa’ procesar facturas en PDF. El **backend** 
     ```
 
 ## Notas
-- El plan gratis de ngrok genera una URL nueva cada vez que lo corres. Actualiza `WEBHOOK_URL` en `app/.env` y `frontend/src/App.js`, y vuelve a correr `register_webhook.py` después de reiniciar ngrok.
+- El plan gratis de ngrok genera una URL nueva cada vez que lo corres. Actualiza `WEBHOOK_URL` en `app/.env` y `frontend/src/App.js`, y vuelve a correr `invoice_api.py` después de reiniciar ngrok.
 - Asegúrate que el backend y el agente de AgentVerse estén corriendo antes de usar el frontend.
 - Contacta al soporte de AgentVerse si el registro del agente o webhook falla constantemente.
 
-## Licencia
-MIT License
