@@ -18,7 +18,7 @@ async def proxy_handler(ctx: Context, sender: str, msg: PDFRequest):
     ctx.logger.info(f"Recibido texto de {msg.path}, procesando con InvoiceExtractor")
     try:
         # Obtener el texto del mensaje
-        texto = msg.content_b64
+        texto = msg.content
         resultados_response, errores_response = extractor.extraer_datos(texto)
         resultado = resultados_response
         errores = errores_response

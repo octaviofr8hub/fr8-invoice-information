@@ -98,7 +98,7 @@ async def process_and_send_pdf(file_content: bytes, filename: str):
         # Enviar texto a Agentverse
         message = {
             "path": filename,
-            "content_b64": texto  # Enviar texto en lugar de base64
+            "content": texto  # Enviar texto en lugar de base64
         }
         model_digest = Model.build_schema_digest(PDFRequest)
 
