@@ -51,7 +51,6 @@ def register_webhook():
     logger.info(f"Client agent started with address: {identity.address}")
     register_with_agentverse(
         identity=identity,
-        #url="http://localhost:5002/api/webhook",
         url=WEBHOOK_URL,
         agentverse_token=AGENTVERSE_API_KEY,
         agent_title="FastAPI Webhook",
@@ -70,14 +69,9 @@ def leer_texto_pdf(path_pdf):
     Returns:
         str: Texto extraído del PDF
     """
-    # with pdfplumber.open(path_pdf) as pdf:
-    #    texto = "\n".join([pagina.extract_text() for pagina in pdf.pages if pagina.extract_text()])
-    #return texto
     try:
         with pdfplumber.open(path_pdf) as pdf:
             texto = "\n".join([pagina.extract_text() or "" for pagina in pdf.pages])
-        # return texto
-        #texto_normalizado = unicodedata.normalize('NFKD', texto)
         return texto
     except Exception as e:
         logger.error(f"Error al leer PDF: {e}")
@@ -155,55 +149,6 @@ async def upload_pdf(file: UploadFile, background_tasks: BackgroundTasks):
     except Exception as e:
         logger.error(f"Error recibiendo PDF: {e}")
         return JSONResponse({"status": "error", "message": str(e)}, status_code=500)
-
-
-'''
-# Webhook para respuestas de Agentverse
-@app.post("/api/webhook")
-async def webhook(request: Request):
-    global latest_response
-    global response_event
-    try:
-        
-        # Leer el cuerpo como bytes y decodificar a string
-        body = await request.body()
-        if not body:
-            logger.error("Cuerpo del request vacío")
-            return JSONResponse({"status": "error", "message": "Empty request body"}, status_code=400)
-
-        body_str = body.decode("utf-8")
-        #logger.info(f"Cuerpo recibido: {body_str}")
-
-        # Parsear el mensaje con parse_message_from_agent
-        message = parse_message_from_agent(body_str)
-        payload = message.payload
-        if not payload:
-            logger.error("No se encontro payload en el mensaje")
-            return JSONResponse({"status": "error", "message": "No payload in message"}, status_code=400)
-
-        # Extraer resultado y errores
-        resultado = payload.get("resultado", {})
-        errores = payload.get("errores", {})
-        logger.info(f"Respuesta de Agentverse - Resultado: {resultado}, Errores: {errores}")
-
-        # Almacenar la respuesta y señalar que la respuesta llego
-        latest_response = {
-            "status": "received",
-            "resultado": resultado,
-            "errores": errores
-        }
-        response_event.set()
-
-        # Devolver respuesta
-        return JSONResponse({
-            "status": "received",
-            "resultado": resultado,
-            "errores": errores
-        })
-    except Exception as e:
-        logger.error(f"Error en webhook: {e}")
-        return JSONResponse({"status": "error", "message": str(e)}, status_code=500)
-'''
 
 @app.post("/api/webhook")
 async def webhook(request: Request):
