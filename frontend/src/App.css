@@ -1,60 +1,3 @@
-/*body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f2f4f8;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 600px;
-  margin: 4rem auto;
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  color: #2c3e50;
-}
-
-input[type="file"] {
-  display: block;
-  margin: 1rem auto;
-}
-
-button {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  display: block;
-  margin: 1rem auto;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #2980b9;
-}
-
-.status {
-  text-align: center;
-  margin-top: 1rem;
-  color: #555;
-}
-
-.response {
-  background-color: #f1f1f1;
-  padding: 1rem;
-  margin-top: 1.5rem;
-  border-radius: 8px;
-  font-family: monospace;
-}*/
-
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f2f4f8;
@@ -63,8 +6,8 @@ body {
 }
 
 .container {
-  max-width: 600px;
-  margin: 4rem auto;
+  /*max-width: 600px;*/
+  margin: auto;
   background: white;
   padding: 2rem;
   border-radius: 12px;
@@ -110,6 +53,7 @@ button:disabled {
 }
 
 .response {
+  /*max-width: 700px;*/
   background-color: #f1f1f1;
   padding: 1rem;
   margin-top: 1.5rem;
@@ -139,6 +83,7 @@ button:disabled {
 
 table {
   width: 100%;
+  /*max-width: 900px;*/
   border-collapse: collapse;
   margin-top: 1rem;
 }
@@ -156,4 +101,12 @@ th {
 
 tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+
+.download-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
