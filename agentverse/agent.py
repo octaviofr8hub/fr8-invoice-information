@@ -3,7 +3,11 @@ from uagents import Agent, Context
 from invoice_models import PDFRequest, PDFResponse
 import httpx
 from invoice_agent import InvoiceExtractor
-import numpy as np
+from dotenv import load_dotenv
+import os
+load_dotenv()
+WEBHOOK_URL = os.getenv('WEBHOOK_URL')
+ASI1_API_KEY = os.getenv('ASI1_API_KEY')
 extractor = InvoiceExtractor(api_key=ASI1_API_KEY) 
 agent = Agent(
     name="agent_1",
@@ -26,10 +30,10 @@ async def proxy_handler(ctx: Context, sender: str, msg: PDFRequest):
                 json={"status": "received", "resultado": resultado, "errores": errores}
             )
             ctx.logger.info(f"Respuesta manual enviada a {WEBHOOK_URL}: {response.status_code}")
-        await ctx.send(sender, PDFResponse(resultado=resultado, errores=errores))
+        #await ctx.send(sender, PDFResponse(resultado=resultado, errores=errores))
     except Exception as e:
         ctx.logger.error(f"Error al procesar texto: {str(e)}")
-        await ctx.send(sender, PDFResponse(resultado={}, errores={"error": str(e)}))
+        #await ctx.send(sender, PDFResponse(resultado={}, errores={"error": str(e)}))
 
 if __name__ == "__main__":
     agent.run()
