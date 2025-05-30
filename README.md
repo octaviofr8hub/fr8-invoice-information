@@ -73,8 +73,8 @@ fr8-invoices-information/
      WEBHOOK_URL=https://<tu-url-de-ngrok>/api/webhook
      TARGET_AGENT_ADDRESS=<direccion-de-tu-agente>
      ```
-     - `<tu-url-de-ngrok>` se obtiene al correr ngrok (mira el paso 6).
-     - `<direccion-de-tu-agente>` se obtiene al correr `proxy_agent.py` (mira el paso 8).
+     - `<tu-url-de-ngrok>` se obtiene al correr ngrok.
+     - `<direccion-de-tu-agente>` Es la direccion del agente alojado en Agentverse, se encuentra directamente en el perfil del agente creado en la zona de "About"
 
 3. **Configura el frontend**:
    - **Ve a la carpeta del frontend**:
