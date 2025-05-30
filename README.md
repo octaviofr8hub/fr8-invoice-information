@@ -51,7 +51,7 @@ fr8-invoices-information/
 1. **Clona el repositorio**:
    ```bash
    git clone https://github.com/octaviofr8hub/fr8-invoice-information.git
-   cd fr8-invoices-information
+   cd fr8-invoice-information
    ```
 
 2. **Configura el backend**:
