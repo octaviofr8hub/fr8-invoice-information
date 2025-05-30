@@ -50,7 +50,7 @@ fr8-invoices-information/
 ## Instalación
 1. **Clona el repositorio**:
    ```bash
-   git clone <url-de-tu-repo>
+   git clone https://github.com/octaviofr8hub/fr8-invoice-information.git
    cd fr8-invoices-information
    ```
 
