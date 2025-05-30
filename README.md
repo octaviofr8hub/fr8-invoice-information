@@ -18,6 +18,61 @@ Este proyecto es un sistema de extracción de información de facturas utilizand
 - Manejo robusto de errores y reintentos en llamadas a la API
 - Procesamiento de respuestas JSON en múltiples formatos
 
+## Formato de Salida
+
+El sistema devuelve una tupla con dos diccionarios:
+
+1. Diccionario de datos extraídos:
+```json
+{
+    "pdf_billed_company_name": "string",
+    "pdf_billed_company_rfc": "string",
+    "pdf_billing_company_name": "string",
+    "pdf_billing_company_rfc": "string",
+    "pdf_provider_bill_uuid": "string",
+    "pdf_currency_code": "string",
+    "pdf_sub_total": float,
+    "pdf_traslado": float,
+    "pdf_retencion": float,
+    "pdf_total": float
+}
+```
+
+2. Diccionario de errores de captura:
+```json
+{
+    "pdf_billed_company_name": boolean,
+    "pdf_billed_company_rfc": boolean,
+    "pdf_billing_company_name": boolean,
+    "pdf_billing_company_rfc": boolean,
+    "pdf_provider_bill_uuid": boolean,
+    "pdf_currency_code": boolean,
+    "pdf_sub_total": boolean,
+    "pdf_traslado": boolean,
+    "pdf_retencion": boolean,
+    "pdf_total": boolean
+}
+```
+
+### Interpretación de errores
+
+- En el diccionario de datos:
+  - Los campos numéricos (subtotal, traslado, retención y total) son convertidos automáticamente a tipo `float`
+  - Los campos de texto que no se encuentran se devuelven como "0"
+  - Los campos numéricos que no se encuentran se devuelven como 0.0
+
+- En el diccionario de errores:
+  - `true`: Indica que hubo un error de captura (el campo tiene valor "0" o 0)
+  - `false`: Indica que el campo tiene un valor válido
+
+### Estadísticas de procesamiento
+
+Al procesar múltiples facturas con `test_multiple_invoices.py`, se generan las siguientes estadísticas:
+- Total de facturas procesadas
+- Número de facturas con errores
+- Total de errores encontrados
+- Promedio de errores por factura
+
 
 ## Requisitos
 - **Python 3.8+**: Descárgalo de [python.org](https://www.python.org/downloads/).
