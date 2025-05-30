@@ -93,8 +93,9 @@ fr8-invoices-information/
      Reemplaza `<tu-url-de-ngrok>` con la URL de ngrok (p.ej., `https://f652-2806-2f0-a6a1-f8b3-d075-7e7a-969c-bcb5.ngrok-free.app`) o déjalo como `http://localhost:8000` si el backend corre local.
 
 4. **Instala ngrok**:
+   El uso de ngrok es para poder obtener las peticiones desde Agentverse, expone el endpoint `/api/webhook` para obtener la informacion procesada por el LLM de ASI1.
    - Descarga e instala ngrok desde [ngrok.com](https://ngrok.com).
-   - Autentica ngrok:
+   - Autentica ngrok (el token se encuentra en el apartado de Dashboard):
      ```bash
      ngrok authtoken <tu-token-de-ngrok>
      ```
@@ -105,13 +106,13 @@ fr8-invoices-information/
    cd app
    uvicorn invoice_api:app --host 0.0.0.0 --port 8000 --reload
    ```
-   Esto inicia el servidor en `http://localhost:8000`.
+   Esto inicia el servidor en `http://localhost:8000` puedes modificarlo al numero de puerto que necesites.
 
 2. **Arranca ngrok**:
    ```bash
    ngrok http 8000
    ```
-   Copia la URL de ngrok (p.ej., `https://f652-2806-2f0-a6a1-f8b3-d075-7e7a-969c-bcb5.ngrok-free.app`) y actualiza `WEBHOOK_URL` en `app/.env` añadiendo `/api/webhook` (p.ej., `https://f652-.../api/webhook`). Si usas ngrok, también actualiza la URL en `frontend/src/App.js`.
+   Copia la URL de ngrok (p.ej., `https://f652-2806-2f0-a6a1-f8b3-d075-7e7a-969c-bcb5.ngrok-free.app`) y actualiza `WEBHOOK_URL` en `app/.env` añadiendo `/api/webhook` (p.ej., `https://f652-.../api/webhook`). Si usas ngrok, también actualiza la URL en `frontend/src/App.js`. Recuerda asignar el mismo numero de puerto que asignaste a la hora de correr la api.
 
 3. **Arranca el agente de AgentVerse**:
    Ingresa a Agentverse -> Agents -> Create Agent esto para alojar un agente en los servicios de fetch.ai, ya que ahi es donde alojaremos nuestro codigo
@@ -120,12 +121,14 @@ fr8-invoices-information/
    Build de agentverse:
    ```bash
    |_agent.py
-   |_invoice_extractor.py
+   |_invoice_agent.py
    |_invoice_models.py
+   |_.env
    ```
    Anota la dirección del agente esta se encuentra en la seccion Overview del agente seleccionado y actualizala en el backend (`TARGET_AGENT_ADDRESS` en `app/.env`).
+   Para mas detalles sobre el codigo alojado en Agentverse puedes visitar: https://agentverse.ai/agents/details/agent1q0nlgmg3ld0h3xp2dlx33w3z27gfdkflmk43qdk7u9eamqsmu37cswmrkf2/profile
 
-4. **Arranca el frontend React**:
+5. **Arranca el frontend React**:
    ```bash
    cd ../frontend
    npm start
